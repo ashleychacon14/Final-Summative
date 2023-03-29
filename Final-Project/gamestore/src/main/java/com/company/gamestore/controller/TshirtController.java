@@ -48,7 +48,7 @@ public class TshirtController {
         return tShirts;
     }
 
-    @PutMapping("/tshirt")
+    @PutMapping("/tshirt/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void updateTShirt(@RequestBody Tshirt tShirt) {
         // Convert the string price to BigDecimal
