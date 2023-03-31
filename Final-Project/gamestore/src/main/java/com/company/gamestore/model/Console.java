@@ -3,6 +3,7 @@ package com.company.gamestore.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.Set;
@@ -10,14 +11,22 @@ import java.util.Set;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "console")
-public class Console {
-    int console_id;
-    String model;
-    String manufacturer;
-    String memory_amount;
-    String processor;
-    BigDecimal price;
-    int quantity;
+public class Console implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int console_id;
+    @Column(name="model")
+    private String model;
+    @Column(name="manufacturer")
+    private String manufacturer;
+    @Column(name="memory_amount")
+    private String memory_amount;
+    @Column(name="processor")
+    private String processor;
+    @Column(name="price")
+    private BigDecimal price;
+    @Column(name="quantity")
+    private int quantity;
 
     @OneToMany(mappedBy = "console_id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Game> games;
