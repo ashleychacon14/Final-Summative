@@ -151,5 +151,4 @@ public class ConsoleTests {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
-
 }
