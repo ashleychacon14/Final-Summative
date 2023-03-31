@@ -1,4 +1,4 @@
 package com.company.gamestore.ControllerTest;
 
-public class TshirtControllerTests {
+public class GameTests {
 }
