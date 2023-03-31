@@ -47,10 +47,10 @@ public class InvoiceTests {
         inputInvoice.setCity("San Fransisco");
 
         ObjectNode invoiceNode = mapper.createObjectNode();
-        invoiceNode.put("size", inputInvoice.getInvoice_id());
-        invoiceNode.put("color", inputInvoice.getName());
-        invoiceNode.put("description", inputInvoice.getStreet());
-        invoiceNode.put("price", inputInvoice.getCity());
+        invoiceNode.put("id", inputInvoice.getInvoice_id());
+        invoiceNode.put("name", inputInvoice.getName());
+        invoiceNode.put("street", inputInvoice.getStreet());
+        invoiceNode.put("city", inputInvoice.getCity());
 
         mockMvc.perform(
                         post("/invoice")
