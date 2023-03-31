@@ -2,9 +2,11 @@ package com.company.gamestore.controller;
 
 import com.company.gamestore.model.Game;
 import com.company.gamestore.model.Invoice;
+import com.company.gamestore.model.Tshirt;
 import com.company.gamestore.repository.GameRepository;
 import com.company.gamestore.repository.InvoiceRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,22 +33,39 @@ public class InvoiceController {
     public Invoice getInvoiceById(@PathVariable int invoice_id) {
 
         Optional<Invoice> returnVal = repo.findById(invoice_id);
-        if (returnVal.isPresent()) {
-            return returnVal.get();
-        } else {
-            return null;
-        }
+        // Convert the BigDecimal to string before returning
+        returnVal.ifPresent(invoice -> {
+            invoice.setInvoice_id(invoice.getInvoice_id());
+        });
+
+        return returnVal.orElse(null);
+    }
+
+    @GetMapping("/invoices/customerName/{customerName}")
+    public List<Invoice> getInvoiceByCustomerName(@PathVariable String customerName) {
+        List<Invoice> invoices = repo.findByCustomerName(customerName);
+
+        // Convert the BigDecimal to string before returning
+        invoices.forEach(invoice -> {
+            invoice.setName(invoice.getName());
+        });
+
+        return invoices;
     }
 
     @PostMapping("/invoices")
     @ResponseStatus(HttpStatus.CREATED)
     public Invoice addInvoice(@RequestBody Invoice invoice) {
+        invoice.setProcessing_fee(new BigDecimal(String.valueOf(invoice.getProcessing_fee())));
+
         return repo.save(invoice);
     }
 
-    @PutMapping("/invoices")
+    @PutMapping("/invoices/{invoice_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateInvoice(@RequestBody Invoice invoice) {
+        invoice.setProcessing_fee(new BigDecimal(String.valueOf(invoice.getProcessing_fee())));
+
         repo.save(invoice);
     }
 

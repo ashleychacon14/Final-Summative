@@ -1,6 +1,7 @@
 package com.company.gamestore.ControllerTest;
 
 import com.company.gamestore.controller.InvoiceController;
+import com.company.gamestore.model.Console;
 import com.company.gamestore.model.Invoice;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -53,7 +54,7 @@ public class InvoiceTests {
         invoiceNode.put("city", inputInvoice.getCity());
 
         mockMvc.perform(
-                        post("/invoice")
+                        post("/invoices")
                                 .content(mapper.writeValueAsString(invoiceNode))
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -75,7 +76,7 @@ public class InvoiceTests {
         invoiceNode.put("street", inputInvoice.getStreet());
 
         mockMvc.perform(
-                        get("/invoice/150")
+                        get("/invoices/150")
                                 .content(invoiceNode.toString())
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -97,7 +98,7 @@ public class InvoiceTests {
         invoiceNode.put("city", inputInvoice.getCity());
 
         mockMvc.perform(
-                        put("/invoice/150")
+                        put("/invoices/150")
                                 .content(invoiceNode.toString())
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -116,7 +117,7 @@ public class InvoiceTests {
         String invoiceNode = mapper.writeValueAsString(inputInvoice);
 
         mockMvc.perform(
-                        delete("/console/150")
+                        delete("/invoices/150")
                                 .content(invoiceNode)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -125,11 +126,29 @@ public class InvoiceTests {
     }
 
     @Test
+    public void shouldReturnOkStatusOnReadByCustomerName() throws Exception {
+        Invoice inputInvoice = new Invoice();
+        inputInvoice.setInvoice_id(150);
+        inputInvoice.setName("X Company");
+        inputInvoice.setStreet("333 Company Lane");
+        inputInvoice.setCity("San Fransisco");
+
+        String inputJson = mapper.writeValueAsString(inputInvoice);
+
+        mockMvc.perform(
+                        get("/invoices/customerName/X Company")
+                                .content(inputJson)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
     public void shouldReturnOkStatusOnReadAll() throws Exception {
         String invoiceNode = mapper.writeValueAsString(invoiceList);
 
         mockMvc.perform(
-                        get("/invoice"))
+                        get("/invoices"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

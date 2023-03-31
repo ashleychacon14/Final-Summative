@@ -52,7 +52,7 @@ public class ConsoleTests {
         consoleNode.put("memory amount", inputConsole.getMemory_amount());
 
         mockMvc.perform(
-                        post("/console")
+                        post("/consoles")
                                 .content(mapper.writeValueAsString(consoleNode))
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -75,7 +75,7 @@ public class ConsoleTests {
         consoleNode.put("memory amount", inputConsole.getMemory_amount());
 
         mockMvc.perform(
-                        get("/console/2")
+                        get("/consoles/2")
                                 .content(consoleNode.toString())
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -97,7 +97,7 @@ public class ConsoleTests {
         consoleNode.put("memory amount", inputConsole.getMemory_amount());
 
         mockMvc.perform(
-                        put("/console/2")
+                        put("/consoles/2")
                                 .content(consoleNode.toString())
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -116,7 +116,7 @@ public class ConsoleTests {
         String inputJson = mapper.writeValueAsString(inputConsole);
 
         mockMvc.perform(
-                        delete("/tshirt/1")
+                        delete("/consoles/2")
                                 .content(inputJson)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -135,7 +135,7 @@ public class ConsoleTests {
         String inputJson = mapper.writeValueAsString(inputConsole);
 
         mockMvc.perform(
-                        get("/console/manufacturer/Flex")
+                        get("/consoles/manufacturer/Flex")
                                 .content(inputJson)
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -147,7 +147,7 @@ public class ConsoleTests {
         String outputJson = mapper.writeValueAsString(consoleList);
 
         mockMvc.perform(
-                        get("/console"))
+                        get("/consoles"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

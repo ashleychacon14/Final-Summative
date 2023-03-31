@@ -14,19 +14,19 @@ import java.util.Set;
 public class Console implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int console_id;
+    private int console_id;
     @Column(name="model")
-    String model;
+    private String model;
     @Column(name="manufacturer")
-    String manufacturer;
+    private String manufacturer;
     @Column(name="memory_amount")
-    String memory_amount;
+    private String memory_amount;
     @Column(name="processor")
-    String processor;
+    private String processor;
     @Column(name="price")
-    BigDecimal price;
+    private BigDecimal price;
     @Column(name="quantity")
-    int quantity;
+    private int quantity;
 
     @OneToMany(mappedBy = "console_id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Game> games;
