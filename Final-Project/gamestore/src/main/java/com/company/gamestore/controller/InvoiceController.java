@@ -41,9 +41,9 @@ public class InvoiceController {
         return returnVal.orElse(null);
     }
 
-    @GetMapping("/invoices/customerName/{customerName}")
-    public List<Invoice> getInvoiceByCustomerName(@PathVariable String customerName) {
-        List<Invoice> invoices = repo.findByCustomerName(customerName);
+    @GetMapping("/invoices/customerName/{name}")
+    public List<Invoice> getInvoiceByName(@PathVariable String name) {
+        List<Invoice> invoices = repo.findByName(name);
 
         // Convert the BigDecimal to string before returning
         invoices.forEach(invoice -> {

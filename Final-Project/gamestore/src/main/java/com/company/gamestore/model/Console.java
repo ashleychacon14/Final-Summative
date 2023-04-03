@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -28,8 +29,18 @@ public class Console implements Serializable {
     @Column(name="quantity")
     private int quantity;
 
-    @OneToMany(mappedBy = "console_id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Game> games;
+    // @OneToMany(mappedBy = "console_id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //private List<Game> games;
+
+    // public List<Game> getGames(){
+    //   return games;
+    //  }
+
+    // public List<Console> consoles;
+
+    // public List<Console> getConsoles(){
+    //    return consoles;
+    // }
 
     public int getConsole_id() {
         return console_id;

@@ -39,7 +39,7 @@ public class ConsoleController {
     @GetMapping("/consoles/manufacturer/{manufacturer}")
     public List<Console> getConsoleByManufacturer(@PathVariable String manufacturer) {
 
-        List<Console> consoles = repo.findByManufacturer(manufacturer);
+        List<Console> consoles = repo.findAllByManufacturer(manufacturer);
 
         // Convert the BigDecimal to string before returning
         consoles.forEach(console -> {

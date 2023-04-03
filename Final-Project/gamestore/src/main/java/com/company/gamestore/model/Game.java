@@ -20,7 +20,7 @@ public class Game implements Serializable {
     private String title;
 
     @NotNull
-    private String esrb_rating;
+    private String esrb;
 
     @NotNull
     private BigDecimal price;
@@ -30,7 +30,6 @@ public class Game implements Serializable {
 
     @NotNull
     private int quantity;
-
 
 
     public int getGame_id() {
@@ -49,12 +48,12 @@ public class Game implements Serializable {
         this.title = title;
     }
 
-    public String getEsrb_rating() {
-        return esrb_rating;
+    public String getEsrb() {
+        return esrb;
     }
 
-    public void setEsrb_rating(String esrb_rating) {
-        this.esrb_rating = esrb_rating;
+    public void setEsrb(String esrb) {
+        this.esrb = esrb;
     }
 
     public BigDecimal getPrice() {
@@ -89,7 +88,7 @@ public class Game implements Serializable {
         Game game = (Game) o;
         return Objects.equals(game.getGame_id(), game.getGame_id()) &&
                 Objects.equals(getTitle(), game.getTitle()) &&
-                Objects.equals(getEsrb_rating(), game.getEsrb_rating()) &&
+                Objects.equals(getEsrb(), game.getEsrb()) &&
                 Objects.equals(getPrice(), game.getPrice()) &&
                 Objects.equals(getStudio(), game.getStudio()) &&
                 Objects.equals(getQuantity(), game.getQuantity());
@@ -100,7 +99,7 @@ public class Game implements Serializable {
     public int hashCode() {
         return Objects.hash(getGame_id(),
                 getTitle(),
-                getEsrb_rating(),
+                getEsrb(),
                 getPrice(),
                 getStudio(),
                 getQuantity());
@@ -111,10 +110,38 @@ public class Game implements Serializable {
         return "Author{" +
                 "id=" + game_id +
                 ", title='" + title + '\'' +
-                ", esrb_rating='" + esrb_rating + '\'' +
+                ", esrb='" + esrb + '\'' +
                 ", price='" + price + '\'' +
                 ", studio='" + studio + '\'' +
                 ", quantity='" + quantity + '\'' +
                 '}';
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
