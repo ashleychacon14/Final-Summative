@@ -6,116 +6,106 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @ActiveProfiles("test")
+@SpringJUnitConfig
 public class TshirtRepositoryTests {
+
     @Autowired
-    private TshirtRepository tShirtRepository;
+    private TshirtRepository tshirtRepository;
 
     @Test
     public void shouldSaveTShirtToDatabase() {
-        // Given
-        Tshirt tShirt = new Tshirt();
-        tShirt.setColor("blue");
-        tShirt.setSize("L");
+        Tshirt tshirt = new Tshirt();
+        tshirt.setColor("blue");
+        tshirt.setSize("L");
 
-        // When
-        Tshirt savedTShirt = tShirtRepository.save(tShirt);
+        Tshirt savedTshirt = tshirtRepository.save(tshirt);
 
-        // Then
-        assertThat(savedTShirt.getId()).isNotNull();
-        assertThat(savedTShirt.getColor()).isEqualTo(tShirt.getColor());
-        assertThat(savedTShirt.getSize()).isEqualTo(tShirt.getSize());
+        assertThat(savedTshirt.getId()).isNotNull();
+        assertThat(savedTshirt.getColor()).isEqualTo(tshirt.getColor());
+        assertThat(savedTshirt.getSize()).isEqualTo(tshirt.getSize());
     }
 
     @Test
     public void shouldFindTShirtById() {
-        // Given
-        Tshirt tShirt = new Tshirt();
-        tShirt.setColor("red");
-        tShirt.setSize("M");
-        Tshirt savedTShirt = tShirtRepository.save(tShirt);
+        Tshirt tshirt = new Tshirt();
+        tshirt.setColor("red");
+        tshirt.setSize("M");
 
-        // When
-        Tshirt foundTShirt = tShirtRepository.findById(savedTShirt.getId()).orElse(null);
+        Tshirt savedTshirt = tshirtRepository.save(tshirt);
 
-        // Then
-        assertThat(foundTShirt).isNotNull();
-        assertThat(foundTShirt.getId()).isEqualTo(savedTShirt.getId());
-        assertThat(foundTShirt.getColor()).isEqualTo(savedTShirt.getColor());
-        assertThat(foundTShirt.getSize()).isEqualTo(savedTShirt.getSize());
+        Tshirt foundTshirt = tshirtRepository.findById(savedTshirt.getId()).orElse(null);
+
+        assertThat(foundTshirt).isNotNull();
+        assertThat(foundTshirt.getId()).isEqualTo(savedTshirt.getId());
+        assertThat(foundTshirt.getColor()).isEqualTo(savedTshirt.getColor());
+        assertThat(foundTshirt.getSize()).isEqualTo(savedTshirt.getSize());
     }
 
     @Test
     public void shouldFindAllTShirts() {
-        // Given
-        Tshirt tShirt1 = new Tshirt();
-        tShirt1.setColor("green");
-        tShirt1.setSize("S");
-        tShirtRepository.save(tShirt1);
+        Tshirt tshirt1 = new Tshirt();
+        tshirt1.setColor("green");
+        tshirt1.setSize("S");
 
-        Tshirt tShirt2 = new Tshirt();
-        tShirt2.setColor("blue");
-        tShirt2.setSize("M");
-        tShirtRepository.save(tShirt2);
+        Tshirt tshirt2 = new Tshirt();
+        tshirt2.setColor("blue");
+        tshirt2.setSize("M");
 
-        Tshirt tShirt3 = new Tshirt();
-        tShirt3.setColor("red");
-        tShirt3.setSize("L");
-        tShirtRepository.save(tShirt3);
+        Tshirt tshirt3 = new Tshirt();
+        tshirt3.setColor("red");
+        tshirt3.setSize("L");
 
-        // When
-        List<Tshirt> tShirts = tShirtRepository.findAll();
+        tshirtRepository.save(tshirt1);
+        tshirtRepository.save(tshirt2);
+        tshirtRepository.save(tshirt3);
 
-        // Then
-        assertThat(tShirts).hasSize(3);
-        assertThat(tShirts).contains(tShirt1, tShirt2, tShirt3);
+        List<Tshirt> tshirts = tshirtRepository.findAll();
+
+        assertThat(tshirts).hasSize(3);
+        assertThat(tshirts).contains(tshirt1, tshirt2, tshirt3);
     }
 
     @Test
     public void shouldUpdateTShirt() {
-        // Given
-        Tshirt tShirt = new Tshirt();
-        tShirt.setColor("black");
-        tShirt.setSize("S");
-        Tshirt savedTShirt = tShirtRepository.save(tShirt);
+        Tshirt tshirt = new Tshirt();
+        tshirt.setColor("black");
+        tshirt.setSize("S");
 
-        // When
-        savedTShirt.setColor("white");
-        Tshirt updatedTShirt = tShirtRepository.save(savedTShirt);
+        Tshirt savedTshirt = tshirtRepository.save(tshirt);
 
-        // Then
-        assertThat(updatedTShirt.getId()).isEqualTo(savedTShirt.getId());
-        assertThat(updatedTShirt.getColor()).isEqualTo("white");
-        assertThat(updatedTShirt.getSize()).isEqualTo(savedTShirt.getSize());
+        savedTshirt.setColor("white");
+
+        Tshirt updatedTshirt = tshirtRepository.save(savedTshirt);
+
+        assertThat(updatedTshirt.getId()).isEqualTo(savedTshirt.getId());
+        assertThat(updatedTshirt.getColor()).isEqualTo("white");
+        assertThat(updatedTshirt.getSize()).isEqualTo(savedTshirt.getSize());
     }
 
     @Test
     public void shouldReturnTShirtsBySize() {
-        Tshirt tShirt1 = new Tshirt();
-        tShirt1.setColor("red");
-        tShirt1.setSize("M");
-        tShirtRepository.save(tShirt1);
+        Tshirt tshirt1 = new Tshirt();
+        tshirt1.setColor("red");
+        tshirt1.setSize("M");
 
-        Tshirt tShirt2 = new Tshirt();
-        tShirt2.setColor("blue");
-        tShirt2.setSize("L");
-        tShirtRepository.save(tShirt2);
+        Tshirt tshirt2 = new Tshirt();
+        tshirt2.setColor("blue");
+        tshirt2.setSize("L");
 
-        List<Tshirt> tShirtsBySize = tShirtRepository.findBySize("M");
+        tshirtRepository.save(tshirt1);
+        tshirtRepository.save(tshirt2);
 
-        assertThat(tShirtsBySize.size()).isEqualTo(1);
-        assertThat(tShirtsBySize.get(0).getColor()).isEqualTo("red");
-    }
+        List<Tshirt> tshirtsBySize = tshirtRepository.findBySize("M");
 
-    @Test
-    public void testDummy() {
-        assertTrue(true);
+        assertThat(tshirtsBySize.size()).isEqualTo(1);
+        assertThat(tshirtsBySize.get(0).getColor()).isEqualTo("red");
     }
 }

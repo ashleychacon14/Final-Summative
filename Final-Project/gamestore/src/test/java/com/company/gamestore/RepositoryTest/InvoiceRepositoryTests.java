@@ -48,7 +48,7 @@ public class InvoiceRepositoryTests {
         invoice = invoiceRepository.save(invoice);
 
         Optional<Invoice> iList = invoiceRepository.findById(invoice.getInvoice_id());
-        assertFalse(iList.isPresent());
+        assertTrue(iList.isPresent());
 
     }
 
@@ -109,7 +109,7 @@ public class InvoiceRepositoryTests {
         invoice = invoiceRepository.save(invoice);
 
         List<Invoice> cList = invoiceRepository.findAll();
-        assertEquals(cList.size(), 2);
+        assertEquals(cList.size(), 1);
     }
 
 }
