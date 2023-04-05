@@ -4,7 +4,6 @@ import com.company.gamestore.model.Console;
 import com.company.gamestore.model.Game;
 import com.company.gamestore.model.Invoice;
 import com.company.gamestore.repository.GameRepository;
-import com.company.gamestore.repository.InvoiceRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +37,6 @@ public class GameRepositoryTests {
         game.setEsrb("E");
         game.setQuantity(3);
         game.setPrice(new BigDecimal("5.12"));
-
         game= gameRepository.save(game);
 
         Optional<Game> iList = gameRepository.findById(game.getGame_id());
